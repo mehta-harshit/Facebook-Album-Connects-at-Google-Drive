@@ -1,5 +1,4 @@
 <?php
-
 require_once 'google-api-php-client-2.2.2/vendor/autoload.php';
 session_start();
 
@@ -108,5 +107,3 @@ if ($_SESSION['driveAccessToken']!="") {
   $redirect_uri = 'https://' . $_SERVER['HTTP_HOST'] . '/photo/googleDrive/oauth2callback.php';
   header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
 }
-
-?>

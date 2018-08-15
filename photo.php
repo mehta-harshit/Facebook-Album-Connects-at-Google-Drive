@@ -25,4 +25,3 @@ for($x=0; $x<$photo_count; $x++){
     $y++;
 }
 die(json_encode(array("success"=>"True","data"=>$data,"column"=>$column)));
-?>

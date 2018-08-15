@@ -17,4 +17,3 @@ if (! isset($_GET['code'])) {
   $redirect_uri = 'https://' . $_SERVER['HTTP_HOST'] . '/photo/googleDrive/index.php';
   header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
 }
-?>

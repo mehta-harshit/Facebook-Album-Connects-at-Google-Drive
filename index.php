@@ -67,12 +67,12 @@ session_start();
                 {?>
                     <div class='col-md-6'>
                     	<div class="card">
-                    		<a href='#' class="author_bio_wrap_toggle" onclick="slideshow('<?php echo $id; ?>');openModal();">
+                    		<a href='#' onclick="slideshow('<?php echo $id; ?>');openModal();">
                     			<img class='card-img-top img-responsive' src='https://graph.facebook.com/v3.1/<?php echo $coverPhoto; ?>/picture?access_token=<?php echo $access_token; ?>' alt='facebook album images' style='max-height: 230px;margin: 0 auto;'>
                     		</a>
                     		<div class='card-body'>
                     			<h3 class='card-text'>
-                    				<a href='<?php echo $show_pictures_link; ?>'><?php echo $name;?></a>
+                    				<a href='#' onclick="slideshow('<?php echo $id; ?>');openModal();"><?php echo $name;?></a>
                     				<input type="checkbox" class="custom-chk" name="checked" id="checked" value="<?php echo $name.'_'.$id ;?>">
                     			</h3>
                     		</div>
@@ -89,23 +89,20 @@ session_start();
             }
             ?>
             <div id="myModal" class="modalGallery">
-              <span class="close cursor" onclick="closeModal()">&times;</span>
-              <div class="modalGallery-content">
-                <div id="slides">
+                <span class="close cursor" onclick="closeModal()">&times;</span>
+                <div class="modalGallery-content">
+                    <div id="slides">
+                    </div>
+                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                    <div class="caption-container">
+                      <p id="caption"></p>
+                    </div>
+                    <div id="columnGets">
+                    </div>
                 </div>
-                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                <a class="next" onclick="plusSlides(1)">&#10095;</a>
-
-                <div class="caption-container">
-                  <p id="caption"></p>
-              </div>
-
-              <div id="columnGets">
-
-              </div>
-          </div>
-      </div>
-  </div>
+            </div>
+        </div>
   <div class="col-md-2">
       <div class="col-md-12">
         <button class="btn btn-success btnMargin" onclick="zipFileAll()">Download All</button>
@@ -136,16 +133,12 @@ session_start();
                 <h4 class="modal-title" id="myModalLabel">Download Zip File</h4>
             </div>
             <div class="modal-body text-center">
-                <input type="hidden" name="tmpFile" id="tmpFile">
-                <button type="button" id="download" class="btn btn-primary btn-lg" onclick="downloadZip()" style="margin: 0 auto;">Download</button>
+                <button type="button" id="download" class="btn btn-primary btn-lg" onclick="downloadZip()" style="margin: 0 auto;"><a href="" id="tmpFile" download style="color: white;text-decoration: none;">Download</a></button>
             </div>
         </div>
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/black-tie/jquery-ui.css" />
-<script src="js/jquery.ajax-progress.js"></script>
 <script src="function.js"></script>
 <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </div>

@@ -40,11 +40,11 @@ foreach ($albumReData as $name => $id) {
 }
 # close zip
 $zip->close();
+$rand=rand(1,1000);
+$fileName="FbAlbumPhotos".$rand.".zip";
+header('Content-Type: application/octet-stream');
+header('Pragma: private');
+file_put_contents($fileName,fopen($tmpFile, 'r'));
+unlink($tmpFile);
 
-die(json_encode(array("success"=>"true","tmpFile"=>$tmpFile)));
-
-# send the file to the browser as a download
-header('Content-disposition: attachment; filename=FbAlbumPhotos.zip');
-header('Content-type: application/zip');
-readfile($tmpFile);
-?>
+die(json_encode(array("success"=>"true","tmpFile"=>$fileName)));

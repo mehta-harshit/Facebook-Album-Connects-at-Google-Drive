@@ -1,22 +1,22 @@
 function slideshow(id) 
-    {
-        var albumData = id
-        $.ajax({
-            url: "photo.php",
-            method: "POST",
-            data: { albumData : albumData },
-            dataType: "json",
-            success:function( msg ) {
-                $("#slides").html(msg.data);
-                $("#columnGets").html(msg.column);
-                showSlides(1);
-            },
-            error:function( jqXHR, textStatus ) {
-                alert( "Request failed: " + textStatus );
-            }
-        });
-    }  
-    function openModal() {
+{
+    var albumData = id
+    $.ajax({
+        url: "photo.php",
+        method: "POST",
+        data: { albumData : albumData },
+        dataType: "json",
+        success:function( msg ) {
+            $("#slides").html(msg.data);
+            $("#columnGets").html(msg.column);
+            showSlides(1);
+        },
+        error:function( jqXHR, textStatus ) {
+            console.log( "Request failed: " + textStatus );
+        }
+    });
+}  
+function openModal() {
   document.getElementById('myModal').style.display = "block";
 }
 
@@ -51,7 +51,6 @@ function showSlides(n) {
             dots[slideIndex-1].className += " active";
 }
     function zipFile(albumData) {
-        // $('#prog').progressbar({ value: 0 });
         $('.myprogress').css('width', '0');
         $.ajax({
             url: "zip.php",
@@ -60,9 +59,11 @@ function showSlides(n) {
             dataType: "json",
             xhr: function () {
                 var xhr = new window.XMLHttpRequest();
-                xhr.upload.addEventListener("progress", function (evt) {
+                xhr.addEventListener("progress", function (evt) {
                     if (evt.lengthComputable) {
                         var percentComplete = evt.loaded / evt.total;
+                        console.log(evt.loaded);
+                        console.log(evt.total);
                         percentComplete = parseInt(percentComplete * 100);
                         console.log(percentComplete);
                         $('.myprogress').text(percentComplete + '%');
@@ -72,17 +73,16 @@ function showSlides(n) {
                 return xhr;
             },
             success:function( msg ) {
-                console.log("done");
                 $("#prog").css('display','none');
                 $("#error").css("display","none");
                 $("#success").css("display","block");
                 $("#successText").html("Zip Created Successfuly.Download it");
                 $("#prog").css('display','none');
-                $("#tmpFile").val(msg.tmpFile);
+                $("#tmpFile").attr("href","https://www.staging.nystrading.com/photo/"+msg.tmpFile);
                 $("#downloadModal").modal('show');
             },
             error:function( jqXHR, textStatus ) {
-              alert( "Request failed: " + textStatus );
+              console.log( "Request failed: " + textStatus );
           }
     });
     }
@@ -103,7 +103,6 @@ function showSlides(n) {
                         if (evt.lengthComputable) {
                             var percentComplete = evt.loaded / evt.total;
                             percentComplete = parseInt(percentComplete * 100);
-                            console.log(percentComplete);
                             $('.myprogress').text(percentComplete + '%');
                             $('.myprogress').css('width', percentComplete + '%');
                         }
@@ -119,11 +118,11 @@ function showSlides(n) {
                     $("#downloadModal").modal('show');
                 },
                 error:function( jqXHR, textStatus ) {
-                    alert( "Request failed: " + textStatus );
+                    console.log( "Request failed: " + textStatus );
                 }
             });
         }else{
-             $("#error").css("display","block");
+            $("#error").css("display","block");
             $("#success").css("display","none");
             $("#errorText").html("Select an album to download.");  
         }
@@ -150,21 +149,20 @@ function showSlides(n) {
                     if (evt.lengthComputable) {
                         var percentComplete = evt.loaded / evt.total;
                         percentComplete = parseInt(percentComplete * 100);
-                        console.log(percentComplete);
                         $('.myprogress').text(percentComplete + '%');
                         $('.myprogress').css('width', percentComplete + '%');
                     }
                 }, false);
                 return xhr;
             },
-			success:function( msg ) {
+			success:function() {
                 $("#error").css("display","none");
                 $("#success").css("display","block");
                 $("#successText").html("Zip Created Successfuly.Download it");
 				$(".myprogress").css('display','none');
 			},
 			error:function( jqXHR, textStatus ) {
-				alert( "Request failed: " + textStatus );
+				console.log( "Request failed: " + textStatus );
 			}
 		});
 	}
@@ -201,39 +199,6 @@ function showSlides(n) {
         window.open("googleDrive/index.php?albumData="+ checkJson);
     }
     function downloadZip() {
-        var tmpFile = $("#tmpFile").val();
-        $("#download").css("display","block");
-        $("#download").html("Your Zip File is downloading...");
-        $("#download").prop('disabled', true);
-        /*$.ajax({
-            url: "https://www.staging.nystrading.com/photo/xmdgBQ",
-            type: "GET",
-            dataType: 'binary',
-            success: function(result) {
-                var url = URL.createObjectURL(result);
-                var $a = $('<a />', {
-                'href': url,
-                'download': 'document.zip',
-                'text': "click"
-                }).hide().appendTo("body")[0].click();
-                setTimeout(function() {
-                    URL.revokeObjectURL(url);
-                }, 10000);
-            }
-        });*/
-        $.ajax({
-            url:"download.php",
-            method: "POST",
-            data: { tmpFile : tmpFile },
-            success:function( msg ) {
-                $("#download").prop('disabled', false);
-                $("#downloadModal").modal('hide');
-                $("#download").html("Download");
-                $("#successText").css("display","none");
-                $("#success").css("display","none");
-            },
-            error:function( jqXHR, textStatus ) {
-                alert( "Request failed: " + textStatus );
-            }
-        });
+        $("#downloadModal").modal('hide');
+        $("#success").css("display","none");
     }

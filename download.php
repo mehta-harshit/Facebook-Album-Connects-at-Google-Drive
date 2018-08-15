@@ -1,25 +1,57 @@
 <?php
 session_start();
-$tmpFile = isset($_POST['tmpFile']) ? $_POST['tmpFile'] : "";
+$FilePaths = isset($_POST['tmpFile']) ? $_POST['tmpFile'] : "";
 
-header('Content-Type: application/octet-stream');
-header('Pragma: private');
-file_put_contents("FbAlbumPhotos.zip",fopen($tmpFile, 'r'));
+// $FilePaths='assets/Upload/'.$FileName; //Give proper file path with file name.
 
-// zip up the contents
-//chdir($path);
-// var_dump(exec("zip -r {$tmpFile} ./"));
+// var_dump($FilePaths);
+download_file($FilePaths);
+
+function download_file( $fullPath )
+{
+  if( headers_sent() )
+    die('Headers Sent');
 
 
-//$filename = "{$name}.zip";
-// header('Content-Disposition: attachment; filename=FbAlbumPhotos.zip');
-// header('Content-type: application/zip');
-// header('Content-Transfer-Encoding: binary');
-// readfile($tmpFile);
-exit();
-/*header('Content-disposition: attachment; filename=FbAlbumPhotos.zip');
-readfile($tmpFile);*/
+  if(ini_get('zlib.output_compression'))
+    ini_set('zlib.output_compression', 'Off');
 
-die(json_encode(array("success"=>"true")));
+  if( file_exists($fullPath) )
+  {
 
-?>
+    $fsize = filesize($fullPath);
+    $path_parts = pathinfo($fullPath);
+    $ext = strtolower($path_parts["extension"]);
+
+    switch ($ext) 
+    {
+      case "pdf": $ctype="application/pdf"; break;
+      case "exe": $ctype="application/octet-stream"; break;
+      case "zip": $ctype="application/zip"; break;
+      case "doc": $ctype="application/msword"; break;
+      case "xls": $ctype="application/vnd.ms-excel"; break;
+      case "ppt": $ctype="application/vnd.ms-powerpoint"; break;
+      case "gif": $ctype="image/gif"; break;
+      case "png": $ctype="image/png"; break;
+      case "jpeg":
+      case "jpg": $ctype="image/jpg"; break;
+      default: $ctype="application/force-download";
+    }
+
+    header("Pragma: public"); 
+    header("Expires: 0");
+    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+    header("Cache-Control: private",false); 
+    header("Content-Type: $ctype");
+    header("Content-Disposition: attachment; filename=FbAlbumPhotos.zip" );
+    header("Content-Transfer-Encoding: binary");
+    header("Content-Length: ".$fsize);
+    ob_clean();
+    flush();
+    readfile( $fullPath );
+
+  } 
+  else
+    die('File Not Found');
+
+}

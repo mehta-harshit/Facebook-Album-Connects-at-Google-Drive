@@ -8,13 +8,6 @@
 (document, 'script', 'facebook-jssdk'));
 function checkLoginState() {
   FB.login(function(response) {
-    if (response.authResponse) {
-      FB.api('/me', function(response) {
-        console.log('Good to see you, ' + response.name + '.');
-      });
-    } else {
-      console.log('User cancelled login or did not fully authorize.');
-    }
   }, {scope: 'public_profile,user_photos',auth_type: 'rerequest'}  );
   FB.getLoginStatus(function(response) {
     statusChangeCallback(response);
@@ -22,14 +15,12 @@ function checkLoginState() {
 }
 function statusChangeCallback(response) {
   if (response.status === 'connected') {
-    var accessToken = response.authResponse.accessToken;
     var request = $.ajax({
       url: "session.php",
       method: "POST",
       data: { response : response },
     });
-    request.done(function( msg ) {
-      console.log(response.status);
+    request.done(function() {
       $("#login").hide();
       $("#album").load(location.href+" #album>*","");
       $("#album").css("display","block");
@@ -37,14 +28,11 @@ function statusChangeCallback(response) {
     request.fail(function( jqXHR, textStatus ) {
       alert( "Request failed: " + textStatus );
     });
-  } else {
-   console.log('Please log into this app.');
- }
+  } 
 }
 function logout() {
-  FB.getLoginStatus(function(response) {
+  FB.getLoginStatus(function() {
     FB.logout(function(connected) {
-      console.log('logout');      
       document.location = 'logout.php';    
     });
   });
