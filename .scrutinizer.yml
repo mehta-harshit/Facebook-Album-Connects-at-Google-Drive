@@ -1,0 +1,21 @@
+tools:
+  php_cpd:
+        enabled:              true
+        command:              phpcpd
+        excluded_dirs:
+            - 'googleDrive/'
+  php_analyzer:
+        enabled:              true
+        filter:
+          paths:
+            - 'googleDrive/*'
+          excluded_paths:
+              - 'googleDrive/*'
+  php_code_sniffer:
+        enabled:              true
+        command:              phpcs
+        config:
+            standard:         PSR2
+        filter:
+            excluded_paths:
+              - 'googleDrive/*'

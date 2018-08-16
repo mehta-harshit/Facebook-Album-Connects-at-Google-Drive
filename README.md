@@ -1,8 +1,9 @@
 # Facebook Albums Uploads at Google Drive 
 
-[![Build Status](https://scrutinizer-ci.com/g/mehta-harshit/photo-test/badges/build.png?b=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mehta-harshit/photo-test/badges/quality-score.png?b=master)
+[![Build Status](https://scrutinizer-ci.com/g/mehta-harshit/photo-challenge/badges/build.png?b=master)](https://scrutinizer-ci.com/g/mehta-harshit/photo-challenge/build-status/master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mehta-harshit/photo-challenge/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mehta-harshit/photo-challenge/?branch=master)
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/mehta-harshit/photo-test/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
+
 This repository contains the open source Facebook API integration and Google Drive Sdk that allows you to access the Facebook Albums and uploads the albums to Google Drive  from your PHP app.
 
 ## Installation

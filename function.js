@@ -10,9 +10,6 @@ function slideshow(id)
             $("#slides").html(msg.data);
             $("#columnGets").html(msg.column);
             showSlides(1);
-        },
-        error:function( jqXHR, textStatus ) {
-            console.log( "Request failed: " + textStatus );
         }
     });
 }  
@@ -62,10 +59,7 @@ function showSlides(n) {
                 xhr.addEventListener("progress", function (evt) {
                     if (evt.lengthComputable) {
                         var percentComplete = evt.loaded / evt.total;
-                        console.log(evt.loaded);
-                        console.log(evt.total);
                         percentComplete = parseInt(percentComplete * 100);
-                        console.log(percentComplete);
                         $('.myprogress').text(percentComplete + '%');
                         $('.myprogress').css('width', percentComplete + '%');
                     }
@@ -80,10 +74,7 @@ function showSlides(n) {
                 $("#prog").css('display','none');
                 $("#tmpFile").attr("href","https://www.staging.nystrading.com/photo/"+msg.tmpFile);
                 $("#downloadModal").modal('show');
-            },
-            error:function( jqXHR, textStatus ) {
-              console.log( "Request failed: " + textStatus );
-          }
+            }
     });
     }
     function zipFileSelected() {
@@ -116,9 +107,6 @@ function showSlides(n) {
                     $("#prog").css('display','none');
                     $("#tmpFile").val(msg.tmpFile);
                     $("#downloadModal").modal('show');
-                },
-                error:function( jqXHR, textStatus ) {
-                    console.log( "Request failed: " + textStatus );
                 }
             });
         }else{
@@ -127,22 +115,22 @@ function showSlides(n) {
             $("#errorText").html("Select an album to download.");  
         }
     }
-	function zipFileAll() {
-		$('.checkbox').each(function(){
-			this.checked = true;
-		});
-		var albumData = [];
-		$("input[name='checked']:checked").each(function(){
+    function zipFileAll() {
+        $('.checkbox').each(function(){
+            this.checked = true;
+        });
+        var albumData = [];
+        $("input[name='checked']:checked").each(function(){
             albumData.push(this.value);
         });
-		$('.checkbox').each(function(){
-			this.checked = false;
-		});
-		$.ajax({
-			url: "zip.php",
-			method: "POST",
-			data: { albumData : albumData },
-			dataType: "json",
+        $('.checkbox').each(function(){
+            this.checked = false;
+        });
+        $.ajax({
+            url: "zip.php",
+            method: "POST",
+            data: { albumData : albumData },
+            dataType: "json",
             xhr: function () {
                 var xhr = new window.XMLHttpRequest();
                 xhr.upload.addEventListener("progress", function (evt) {
@@ -155,17 +143,14 @@ function showSlides(n) {
                 }, false);
                 return xhr;
             },
-			success:function() {
+            success:function() {
                 $("#error").css("display","none");
                 $("#success").css("display","block");
                 $("#successText").html("Zip Created Successfuly.Download it");
-				$(".myprogress").css('display','none');
-			},
-			error:function( jqXHR, textStatus ) {
-				console.log( "Request failed: " + textStatus );
-			}
-		});
-	}
+                $(".myprogress").css('display','none');
+            }
+        });
+    }
     function move(albumData) {
         var checkJson = encodeURIComponent(JSON.stringify(albumData));
         window.open("googleDrive/index.php?albumData="+ checkJson);
