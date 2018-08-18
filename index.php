@@ -23,8 +23,8 @@ session_start();
 </div>
 <div id="album" style="display: none;">
     <?php
-    $fbid=$_SESSION['fbid'];
-    $access_token=$_SESSION['fbAccessToken'];
+    $fbid = $_SESSION['fbid'];
+    $access_token = $_SESSION['fbAccessToken'];
     ?>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -49,22 +49,22 @@ session_start();
         <h4 id="successText"></h4>
     </div>
     <?php
-    $fields="id,name,description,link,cover_photo,count";
+    $fields = 'id,name,description,link,cover_photo,count';
     $jsonLink = "https://graph.facebook.com/v3.1/{$fbid}/albums?fields={$fields}&access_token={$access_token}";
     $json = file_get_contents($jsonLink);
 
     $data = json_decode($json, true, 512, JSON_BIGINT_AS_STRING);
     $albumCount = count($data['data']);
-    if ($albumCount>0) {
-        for($x=0; $x<$albumCount; $x++){
-            $id = isset($data['data'][$x]['id']) ? $data['data'][$x]['id'] : "";
-            $name = isset($data['data'][$x]['name']) ? $data['data'][$x]['name'] : "";
-            $coverPhoto = isset($data['data'][$x]['cover_photo']['id']) ? $data['data'][$x]['cover_photo']['id'] : "";
-            $count = isset($data['data'][$x]['count']) ? $data['data'][$x]['count'] : "";
+    if ($albumCount > 0) {
+        for ($x = 0; $x < $albumCount; $x++) {
+            $id = isset($data['data'][$x]['id']) ? $data['data'][$x]['id'] : '';
+            $name = isset($data['data'][$x]['name']) ? $data['data'][$x]['name'] : '';
+            $coverPhoto = isset($data['data'][$x]['cover_photo']['id']) ? $data['data'][$x]['cover_photo']['id'] : '';
+            $count = isset($data['data'][$x]['count']) ? $data['data'][$x]['count'] : '';
             $show_pictures_link = "photos.php?album_id={$id}&album_name={$name}";
-            $albumData="'".$name.'_'.$id."'";
-            if($name!="")
-                {?>
+            $albumData = "'".$name.'_'.$id."'";
+            if ($name != '') {
+                ?>
                     <div class='col-md-6'>
                     	<div class="card">
                     		<a href='#' onclick="slideshow('<?php echo $id; ?>');openModal();">
@@ -72,22 +72,21 @@ session_start();
                     		</a>
                     		<div class='card-body'>
                     			<h3 class='card-text'>
-                    				<a href='#' onclick="slideshow('<?php echo $id; ?>');openModal();"><?php echo $name;?></a>
-                    				<input type="checkbox" class="custom-chk" name="checked" id="checked" value="<?php echo $name.'_'.$id ;?>">
+                    				<a href='#' onclick="slideshow('<?php echo $id; ?>');openModal();"><?php echo $name; ?></a>
+                    				<input type="checkbox" class="custom-chk" name="checked" id="checked" value="<?php echo $name.'_'.$id; ?>">
                     			</h3>
                     		</div>
                     		<p>
-                    			<div style='color:#888;'><h4><?php echo $count;?> Photos</h4></div>
+                    			<div style='color:#888;'><h4><?php echo $count; ?> Photos</h4></div>
                     			<button class="btn btn-primary" onclick="zipFile(<?php echo $albumData; ?>)">Download This Album</button>
                     			<button class="btn btn-warning" onclick="move(<?php echo $albumData; ?>)">Move</button>
-                    			<a href="googleDrive/index.php?albumData=<?php echo json_encode(array($name.'_'.$id)); ?>" target="_blank"></a>
+                    			<a href="googleDrive/index.php?albumData=<?php echo json_encode([$name.'_'.$id]); ?>" target="_blank"></a>
                     		</p>
                         </div>
                     </div>
                     <?php
-                }
             }
-            ?>
+        } ?>
             <div id="myModal" class="modalGallery">
                 <span class="close cursor" onclick="closeModal()">&times;</span>
                 <div class="modalGallery-content">
@@ -112,11 +111,11 @@ session_start();
     </div>
 </div>
     <?php
-}else{
-    ?>
+    } else {
+        ?>
     <div class="col-md-12"><h1>No Any Album Found, Create some album on facebook.</h1></div>
-    <?php 
-}
+    <?php
+    }
 ?>
 <div class="col-md-12">
 	<div class="progress">
