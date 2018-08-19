@@ -80,11 +80,11 @@ function showSlides(n) {
     function zipFileSelectedAll(flag) {
         $(".progress").css('display','block');
         $('.myprogress').css('width', '0');
-        if (flag==0) {
+        var albumData = [];
+        if (flag===0) {
             $('.checkbox').each(function(){
                 this.checked = true;
             });
-            var albumData = [];
             $("input[name='checked']:checked").each(function(){
                 albumData.push(this.value);
             });
@@ -92,10 +92,11 @@ function showSlides(n) {
                 this.checked = false;
             });
         }else if (flag == 1){
-            var albumData = [];
             $("input[name='checked']:checked").each(function(){
                 albumData.push(this.value);
             });
+        }else{
+            albumData="";
         }
         if (albumData!="") {            
             $.ajax({
