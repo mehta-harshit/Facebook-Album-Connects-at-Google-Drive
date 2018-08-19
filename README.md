@@ -1,15 +1,17 @@
 # Facebook Albums Uploads at Google Drive 
 
-[![Build Status](https://scrutinizer-ci.com/g/mehta-harshit/photo-test/badges/build.png?b=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mehta-harshit/photo-test/badges/quality-score.png?b=master)
+[![Build Status](https://scrutinizer-ci.com/g/mehta-harshit/photo-challenge/badges/build.png?b=master)](https://scrutinizer-ci.com/g/mehta-harshit/photo-challenge/build-status/master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/mehta-harshit/photo-challenge/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/mehta-harshit/photo-challenge/?branch=master)
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/mehta-harshit/photo-test/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
+[![StyleCI](https://github.styleci.io/repos/144622518/shield?branch=master)](https://github.styleci.io/repos/144622518)
+
 This repository contains the open source Facebook API integration and Google Drive Sdk that allows you to access the Facebook Albums and uploads the albums to Google Drive  from your PHP app.
 
 ## Installation
 
 ## Facebook JAVASCRIPT SDK
 
-It can be installed from [Facebook Guide]https://developers.facebook.com/docs/javascript/). 
+It can be installed from [Facebook Guide](https://developers.facebook.com/docs/javascript/). 
 It doesn't have any standalone files that need to be downloaded or installed, instead you simply need to include a short piece of regular JavaScript in your HTML that will asynchronously load the SDK into your pages.
 
 ## Google Drive SDK 
@@ -50,11 +52,11 @@ For additional installation and setup instructions, see [the documentation](http
 
 > **Note:** This version of the Facebook Javascript SDK And Google Drive SDK for PHP requires PHP 5.4 or greater.
 
-Complete documentation, installation instructions, and examples are available [here](docs/).
+Complete documentation, installation instructions, and examples are available here.
 
 ## Demo
 
-[You can view a live, interactive version of this Gist here](https://www.staging.nystrading.com/photo/).
+[You can view a live, interactive version of this Repo here](https://www.staging.nystrading.com/photo/).
 
 
 ## Security Vulnerabilities

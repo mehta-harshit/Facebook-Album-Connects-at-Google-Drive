@@ -18,7 +18,7 @@ session_start();
 <div class="text-center container" id="login">
 	<h2 class="text-center">FB Photo Album</h2>       
 	<div class="form-group col-md-12">
-		<div class="fb-login-button btn btn-primary " data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" onlogin="checkLoginState();" ></div>
+		<div class="fb-login-button btn btn-primary " data-max-rows="1" data-size="medium" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" onlogin="checkLoginState();" data-scope="public_profile,user_photos"></div>
 	</div>
 </div>
 <div id="album" style="display: none;">
@@ -41,6 +41,9 @@ session_start();
 </nav>
 <div class="container">
 	<div class="row">
+		    <div class="progress" style="display: none;">
+		    	<div class="progress-bar progress-bar-success myprogress" role="progressbar" style="width:0%">0%</div>
+		    </div>
 		<div class="col-md-10">
     <div class="alert alert-danger alert-dismissible"  id="error" style="display:none">
         <h4 id="errorText"></h4>
@@ -67,7 +70,7 @@ session_start();
                 {?>
                     <div class='col-md-6'>
                     	<div class="card">
-                    		<a href='#' onclick="slideshow('<?php echo $id; ?>');openModal();">
+                    		<a href='#' onclick="slideshow('<?php echo $id; ?>');openModal();" class="hover-shadow cursor">
                     			<img class='card-img-top img-responsive' src='https://graph.facebook.com/v3.1/<?php echo $coverPhoto; ?>/picture?access_token=<?php echo $access_token; ?>' alt='facebook album images' style='max-height: 230px;margin: 0 auto;'>
                     		</a>
                     		<div class='card-body'>
@@ -119,9 +122,7 @@ session_start();
 }
 ?>
 <div class="col-md-12">
-	<div class="progress">
-		<div class="progress-bar progress-bar-success myprogress" role="progressbar" style="width:0%">0%</div>
-	</div>
+	
 </div>
 </div>
 </div>

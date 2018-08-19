@@ -19,8 +19,8 @@ for($x=0; $x<$photo_count; $x++){
     $data.='<div class="mySlides">';
     $data.='<img src="'.$source.'" style="width:100%">';
     $data.='</div>';
-    $column.='<div class="column">';
-    $column.='<img class="demo cursor" src="'.$source.'" style="width:150px" onclick="currentSlide('.$y.')">';
+    $column.='<div class="column col-md-2">';
+    $column.='<img class="demo cursor" src="'.$source.'" style="width:100px" onclick="currentSlide('.$y.')">';
     $column.='</div>';
     $y++;
 }

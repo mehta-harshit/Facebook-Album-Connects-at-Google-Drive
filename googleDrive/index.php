@@ -1,5 +1,5 @@
 <?php
-require_once 'google-api-php-client-2.2.2/vendor/autoload.php';
+require_once 'google-api-php-client/vendor/autoload.php';
 session_start();
 
 $fbaccess_token=$_SESSION['fbAccessToken'];

@@ -21,7 +21,8 @@ h4{
 
 .column {
   float: left;
-  width: 14%;
+  /* width: 14%; */
+  margin-bottom: 10px;
 }
 
 /* The Modal (background) */
@@ -45,7 +46,7 @@ h4{
   margin: auto;
   padding: 0;
   width: 90%;
-  max-width: 1200px;
+  max-width: 950px;
 }
 
 /* The Close Button */
@@ -66,7 +67,7 @@ h4{
 }
 
 .mySlides {
-  display: none;
+  /* display: none; */
 }
 
 .cursor {
@@ -137,7 +138,7 @@ img.hover-shadow {
 }
 
 .hover-shadow:hover {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 4px 8px 0 rgb(0, 0, 0), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 .card{
   border: 2px solid;
