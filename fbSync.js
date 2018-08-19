@@ -6,7 +6,6 @@
   fjs.parentNode.insertBefore(js, fjs);
 }
 (document, 'script', 'facebook-jssdk'));
-var FB;
 function checkLoginState() {
   FB.getLoginStatus(function(response) {
     statusChangeCallback(response);

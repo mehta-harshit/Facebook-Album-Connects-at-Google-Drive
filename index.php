@@ -92,7 +92,7 @@ session_start();
             }
             ?>
             <div id="myModal" class="modalGallery">
-                <span class="close cursor" onclick="closeModal()">&times;</span>
+                <span class="close cursor" onclick="closeModal()" style="color: black;">&times;</span>
                 <div class="modalGallery-content">
                     <div id="slides">
                     </div>
@@ -108,9 +108,9 @@ session_start();
         </div>
   <div class="col-md-2">
       <div class="col-md-12">
-        <button class="btn btn-success btnMargin" onclick="zipFileAll()">Download All</button>
+        <button class="btn btn-success btnMargin" onclick="zipFileSelectedAll(0)">Download All</button>
         <button class="btn btn-warning btnMargin" onclick="moveAll()">Move All</button>
-        <button class="btn btn-success btnMargin" onclick="zipFileSelected()">Download Selected</button>
+        <button class="btn btn-success btnMargin" onclick="zipFileSelectedAll(1)">Download Selected</button>
         <button class="btn btn-warning btnMargin" onclick="moveSelected()">Move Selected</button>
     </div>
 </div>
@@ -130,7 +130,7 @@ session_start();
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only" style="color: black;">Close</span></button>
                 <h4 class="modal-title" id="myModalLabel">Download Zip File</h4>
             </div>
             <div class="modal-body text-center">
