@@ -91,7 +91,7 @@ function showSlides(n) {
             $('.checkbox').each(function(){
                 this.checked = false;
             });
-        }else if (flag == 1){
+        }else if (flag === 1){
             $("input[name='checked']:checked").each(function(){
                 albumData.push(this.value);
             });
