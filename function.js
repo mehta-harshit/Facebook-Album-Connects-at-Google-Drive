@@ -72,19 +72,34 @@ function showSlides(n) {
                 $("#error").css("display","none");
                 $("#success").css("display","block");
                 $("#successText").html("Zip Created Successfuly.Download it");
-                $("#tmpFile").attr("href","https://www.staging.nystrading.com/photo/"+msg.tmpFile);
+                var tmpFile = document.getElementById('tmpFile');
+                tmpFile.setAttribute("href","https://www.staging.nystrading.com/photo/"+msg.tmpFile);
                 $("#downloadModal").modal('show');
             }
     });
     }
-    function zipFileSelected() {
+    function zipFileSelectedAll(flag) {
         $(".progress").css('display','block');
         $('.myprogress').css('width', '0');
         var albumData = [];
-        $("input[name='checked']:checked").each(function(){
-            albumData.push(this.value);
-        });
-        if (albumData!="") {            
+        if (flag===0) {
+            $('.custom-chk').each(function(){
+                this.checked = true;
+            });
+            $("input[name='checked']:checked").each(function(){
+                albumData.push(this.value);
+            });
+            $('.custom-chk').each(function(){
+                this.checked = false;
+            });
+        }else if (flag === 1){
+            $("input[name='checked']:checked").each(function(){
+                albumData.push(this.value);
+            });
+        }else{
+            albumData="";
+        }
+        if (albumData!="" ) {            
             $.ajax({
                 url: "zip.php",
                 method: "POST",
@@ -107,55 +122,20 @@ function showSlides(n) {
                     $("#error").css("display","none");
                     $("#success").css("display","block");
                     $("#successText").html("Zip Created Successfuly.Download it");
-                    $("#tmpFile").attr("href","https://www.staging.nystrading.com/photo/"+msg.tmpFile);
+                    var tmpFile = document.getElementById('tmpFile');
+                    tmpFile.setAttribute("href","https://www.staging.nystrading.com/photo/"+msg.tmpFile);
                     $("#downloadModal").modal('show');
+                    $('.custom-chk').each(function(){
+                        this.checked = false;
+                    });
                 }
             });
         }else{
+            $(".progress").css('display','none');
             $("#error").css("display","block");
             $("#success").css("display","none");
             $("#errorText").html("Select an album to download.");  
         }
-    }
-    function zipFileAll() {
-        $(".progress").css('display','block');
-        $('.myprogress').css('width', '0');
-        $('.checkbox').each(function(){
-            this.checked = true;
-        });
-        var albumData = [];
-        $("input[name='checked']:checked").each(function(){
-            albumData.push(this.value);
-        });
-        $('.checkbox').each(function(){
-            this.checked = false;
-        });
-        $.ajax({
-            url: "zip.php",
-            method: "POST",
-            data: { albumData : albumData },
-            dataType: "json",
-            xhr: function () {
-                var xhr = new window.XMLHttpRequest();
-                xhr.upload.addEventListener("progress", function (evt) {
-                    if (evt.lengthComputable) {
-                        var percentComplete = evt.loaded / evt.total;
-                        percentComplete = parseInt(percentComplete * 100);
-                        $('.myprogress').text(percentComplete + '%');
-                        $('.myprogress').css('width', percentComplete + '%');
-                    }
-                }, false);
-                return xhr;
-            },
-            success:function( msg ) {
-                $(".progress").css('display','none');
-                $("#error").css("display","none");
-                $("#success").css("display","block");
-                $("#successText").html("Zip Created Successfuly.Download it");
-                $("#tmpFile").attr("href","https://www.staging.nystrading.com/photo/"+msg.tmpFile);
-                $("#downloadModal").modal('show');
-            }
-        });
     }
     function move(albumData) {
         var checkJson = encodeURIComponent(JSON.stringify(albumData));
@@ -176,20 +156,21 @@ function showSlides(n) {
         }
     }
     function moveAll() {
-        $('.checkbox').each(function(){
+        $('.custom-chk').each(function(){
             this.checked = true;
         });
         var albumData = [];
         $("input[name='checked']:checked").each(function(){
             albumData.push(this.value);
         });
-        $('.checkbox').each(function(){
+        $('.custom-chk').each(function(){
             this.checked = false;
         });
         var checkJson = encodeURIComponent(JSON.stringify(albumData));
         window.open("googleDrive/index.php?albumData="+ checkJson);
     }
     function downloadZip() {
+        tmpFile.click();
         $("#downloadModal").modal('hide');
         $("#success").css("display","none");
     }
