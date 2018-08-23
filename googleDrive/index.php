@@ -76,7 +76,7 @@ if ($_SESSION['driveAccessToken']!="") {
         );
         $folderId=$file1->id;
 
-        $json_link = "https://graph.facebook.com/v3.1/{$id}/photos?fields=source,images,name&access_token={$fbaccess_token}";
+        $json_link = "https://graph.facebook.com/v3.1/{$id}/photos?fields=source,images,name&access_token={$fbaccess_token}&limit=500";
         $json = file_get_contents($json_link);
         $obj = json_decode($json, true, 512, JSON_BIGINT_AS_STRING);
         $photo_count = count($obj['data']);

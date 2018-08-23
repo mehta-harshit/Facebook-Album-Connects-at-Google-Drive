@@ -41,15 +41,9 @@ session_start();
 </nav>
 <div class="container">
 	<div class="row">
-		    <div class="progress" style="display: none;">
-		    	<div class="progress-bar progress-bar-success myprogress" role="progressbar" style="width:0%">0%</div>
-		    </div>
 		<div class="col-md-10">
     <div class="alert alert-danger alert-dismissible"  id="error" style="display:none">
         <h4 id="errorText"></h4>
-    </div>
-    <div class="alert alert-success alert-dismissible" id="success" style="display:none">
-        <h4 id="successText"></h4>
     </div>
     <?php
     $fields="id,name,description,link,cover_photo,count";
@@ -131,10 +125,16 @@ session_start();
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only" style="color: white;">Close</span></button>
-                <h4 class="modal-title" id="myModalLabel">Download Zip File</h4>
+                <h4 class="modal-title" id="myModalLabel">Zipping...</h4>
             </div>
             <div class="modal-body text-center">
-                <button type="button" id="download" class="btn btn-primary btn-lg" onclick="downloadZip()" style="margin: 0 auto;"><a href="" id="tmpFile" download target="_self" style="color: white;text-decoration: none;">Download</a></button>
+                <div class="progress" style="display: none;">
+                    <div class="progress-bar progress-bar-success myprogress" role="progressbar" style="width:0%">0%</div>
+                </div>
+                <div class="alert alert-success alert-dismissible" id="success" style="display:none">
+                    <h4 id="successText"></h4>
+                </div>
+                <button type="button" id="download" class="btn btn-primary btn-lg" onclick="downloadZip()" style="margin: 0 auto;display:none;"><a href="" id="tmpFile" download target="_self" style="color: white;text-decoration: none;">Download</a></button>
             </div>
         </div>
     </div>

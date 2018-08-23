@@ -22,13 +22,11 @@ $zip->open($tmpFile, ZipArchive::CREATE);
 
 foreach ($albumReData as $name => $id) {
 	$zip->addEmptyDir($name);
-	$jsonLink = "https://graph.facebook.com/v3.1/{$id}/photos?fields=source,images,name&access_token={$access_token}";
+	$jsonLink = "https://graph.facebook.com/v3.1/{$id}/photos?fields=source,images,name&access_token={$access_token}&limit=500";
 	$json = file_get_contents($jsonLink);
-
 	$obj = json_decode($json, true, 512, JSON_BIGINT_AS_STRING);
 
 	$photo_count = count($obj['data']);
-
 	$y=1; #added for adding image name
 	for($x=0; $x<$photo_count; $x++){
 		$source = isset($obj['data'][$x]['source']) ? $obj['data'][$x]['source'] : "";

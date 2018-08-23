@@ -3,7 +3,7 @@ session_start();
 $albumData = isset($_REQUEST['albumData']) ? $_REQUEST['albumData'] : die('Album ID not specified.');
 $access_token=$_SESSION['fbAccessToken'];
 
-$jsonLink = "https://graph.facebook.com/v3.1/{$albumData}/photos?fields=source,images,name&access_token={$access_token}";
+$jsonLink = "https://graph.facebook.com/v3.1/{$albumData}/photos?fields=source,images,name&access_token={$access_token}&limit=500";
 $json = file_get_contents($jsonLink);
  
 $jsonData = json_decode($json, true, 512, JSON_BIGINT_AS_STRING);

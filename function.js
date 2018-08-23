@@ -48,6 +48,7 @@ function showSlides(n) {
             dots[slideIndex-1].className += " active";
 }
     function zipFile(albumData) {
+        $("#downloadModal").modal('show');
         $(".progress").css('display','block');
         $('.myprogress').css('width', '0');
         $.ajax({
@@ -72,13 +73,15 @@ function showSlides(n) {
                 $("#error").css("display","none");
                 $("#success").css("display","block");
                 $("#successText").html("Zip Created Successfuly.Download it");
+                $("#download").css("display","block");
                 var tmpFile = document.getElementById('tmpFile');
                 tmpFile.setAttribute("href","https://www.staging.nystrading.com/photo/"+msg.tmpFile);
-                $("#downloadModal").modal('show');
-            }
+            },
+            timeout:10000
     });
     }
     function zipFileSelectedAll(flag) {
+        $("#downloadModal").modal('show');
         $(".progress").css('display','block');
         $('.myprogress').css('width', '0');
         var albumData = [];
@@ -124,7 +127,7 @@ function showSlides(n) {
                     $("#successText").html("Zip Created Successfuly.Download it");
                     var tmpFile = document.getElementById('tmpFile');
                     tmpFile.setAttribute("href","https://www.staging.nystrading.com/photo/"+msg.tmpFile);
-                    $("#downloadModal").modal('show');
+                    $("#download").css("display","block");
                     $('.custom-chk').each(function(){
                         this.checked = false;
                     });
