@@ -51,6 +51,8 @@ function showSlides(n) {
         $("#downloadModal").modal('show');
         $(".progress").css('display','block');
         $('.myprogress').css('width', '0');
+        $("#success").css("display","none");
+        $("#download").css("display","none");
         $.ajax({
             url: "zip.php",
             method: "POST",
@@ -77,13 +79,14 @@ function showSlides(n) {
                 var tmpFile = document.getElementById('tmpFile');
                 tmpFile.setAttribute("href","https://www.staging.nystrading.com/photo/"+msg.tmpFile);
             },
-            timeout:10000
     });
     }
     function zipFileSelectedAll(flag) {
         $("#downloadModal").modal('show');
         $(".progress").css('display','block');
         $('.myprogress').css('width', '0');
+        $("#success").css("display","none");
+        $("#download").css("display","none");
         var albumData = [];
         if (flag===0) {
             $('.custom-chk').each(function(){
@@ -176,4 +179,5 @@ function showSlides(n) {
         tmpFile.click();
         $("#downloadModal").modal('hide');
         $("#success").css("display","none");
+        $("#download").css("display","none");
     }
