@@ -62,7 +62,7 @@ function showSlides(n) {
                 var xhr = new window.XMLHttpRequest();
                 xhr.upload.addEventListener("progress", function (evt) {
                     if (evt.lengthComputable) {
-                        var percentComplete = evt.loaded / evt.total;
+                        var percentComplete = evt.loaded / 100;
                         percentComplete = parseInt(percentComplete * 100);
                         $('.myprogress').text(percentComplete + '%');
                         $('.myprogress').css('width', percentComplete + '%');
@@ -115,7 +115,7 @@ function showSlides(n) {
                     var xhr = new window.XMLHttpRequest();
                     xhr.upload.addEventListener("progress", function (evt) {
                         if (evt.lengthComputable) {
-                            var percentComplete = evt.loaded / evt.total;
+                            var percentComplete = evt.loaded / 100;
                             percentComplete = parseInt(percentComplete * 100);
                             $('.myprogress').text(percentComplete + '%');
                             $('.myprogress').css('width', percentComplete + '%');
