@@ -24,20 +24,10 @@ function getData($id,$name,$after = NULL,$postfix=NULL)
 	if($after=="")
 	{
 		$jsonLink = "https://graph.facebook.com/v3.1/{$id}/photos?fields=source,images,name&access_token={$access_token}&limit=100";
-		$json = file_get_contents($jsonLink);
-		$obj = json_decode($json,true);
-		$photo_count = count($obj['data']);
-		$after=$obj['paging']['cursors']['after'];
 	    $postfix=1; #postfix for image name
-	    for($x=0; $x<$photo_count; $x++){
-	    	$source = isset($obj['data'][$x]['source']) ? $obj['data'][$x]['source'] : "";
-	    	$downloadFile = file_get_contents($source);
-	    	$zip->addFromString($name.'/'."img".$postfix.".jpg",$downloadFile);
-	    	$postfix++;
-	    }
-	    getData($id,$name,$after,$postfix);
 	}else{
 		$jsonLink = "https://graph.facebook.com/v3.1/{$id}/photos?fields=source,images,name&access_token={$access_token}&limit=100&after=$after";
+	}
 		$json = file_get_contents($jsonLink);
 		$obj = json_decode($json,true);
 		$photo_count = count($obj['data']);
@@ -52,7 +42,6 @@ function getData($id,$name,$after = NULL,$postfix=NULL)
 			}
 			getData($id,$name,$after,$postfix);
 		}
-	}
 	return 0;
 }
 
