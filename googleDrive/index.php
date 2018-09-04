@@ -32,7 +32,42 @@ for ($i=0; $i < count($sp); $i++) {
     $albumReData[$sp[$i][0]]=$sp[$i][1];
 }
 
+function getData($id,$name,$folderId,$after = NULL,$postfix=NULL)
+{
+    global $fbaccess_token,$drive_service;
+        if($after=="")
+    {
+        $jsonLink = "https://graph.facebook.com/v3.1/{$id}/photos?fields=source,images,name&access_token={$fbaccess_token}&limit=100";
+        $postfix=1; #postfix for image name
+    }else{
+        $jsonLink = "https://graph.facebook.com/v3.1/{$id}/photos?fields=source,images,name&access_token={$fbaccess_token}&limit=100&after=$after";
+    }    
+    $json = file_get_contents($jsonLink);
+    $obj = json_decode($json, true, 512, JSON_BIGINT_AS_STRING);
+    $photoCount = count($obj['data']);
+    if(!empty($obj['data']))
+    {
+        $after=$obj['paging']['cursors']['after'];
+        for($x=0; $x<$photoCount; $x++){
+            $source = isset($obj['data'][$x]['source']) ? $obj['data'][$x]['source'] : "";
+            $content = file_get_contents($source);
 
+            $fileMetadata2 = new Google_Service_Drive_DriveFile(array(
+               'name' => 'photo'.$postfix.'.jpg',
+               'parents' => array($folderId)
+            ));
+            $file2 = $drive_service->files->create($fileMetadata2, array(
+                'data' => $content,
+                'mimeType' => 'image/jpeg',
+                'uploadType' => 'multipart',
+                'fields' => 'id'
+            ));
+            $postfix++;
+        }
+        getData($id,$name,$folderId,$after,$postfix);
+    }
+    return 0;
+}
 if (!file_exists("client_id.json")) exit("Client secret file not found");
 $client = new Google_Client();
 $client->setAuthConfig('client_id.json');
@@ -51,7 +86,7 @@ if ($_SESSION['driveAccessToken']!="") {
         $profileLink="https://graph.facebook.com/v3.1/me?fields=id,name&access_token={$fbaccess_token}";
         $profileJson = file_get_contents($profileLink);
         $profileData = json_decode($profileJson, true, 512, JSON_BIGINT_AS_STRING);
-        $userName=$profileData['name'];
+        $userName="Facebook_Albums[".$profileData['name']."]";
         $drive_service = new Google_Service_Drive($client);
         $fileMetadata = new Google_Service_Drive_DriveFile(
             array(
@@ -75,31 +110,8 @@ if ($_SESSION['driveAccessToken']!="") {
             'fields' => 'id')
         );
         $folderId=$file1->id;
-
-        $json_link = "https://graph.facebook.com/v3.1/{$id}/photos?fields=source,images,name&access_token={$fbaccess_token}&limit=500";
-        $json = file_get_contents($json_link);
-        $obj = json_decode($json, true, 512, JSON_BIGINT_AS_STRING);
-        $photo_count = count($obj['data']);
-
-        $y=1; #added for adding image name
-
-        for($x=0; $x<$photo_count; $x++){
-
-            $source = isset($obj['data'][$x]['source']) ? $obj['data'][$x]['source'] : "";
-            $content = file_get_contents($source);
-
-            $fileMetadata2 = new Google_Service_Drive_DriveFile(array(
-               'name' => 'photo'.$y.'.jpg',
-               'parents' => array($folderId)
-            ));
-            $file2 = $drive_service->files->create($fileMetadata2, array(
-                'data' => $content,
-                'mimeType' => 'image/jpeg',
-                'uploadType' => 'multipart',
-                'fields' => 'id'));
-            // $fileId=$file2->id;
-            $y++;
-        }
+        getData($id,$name,$folderId);
+        
     }
     header('Location:https://drive.google.com');
 } else {
