@@ -47,10 +47,10 @@ if ($_SESSION['driveAccessToken']!="") {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
-<div class="container">
+<div class="container" onload="uploadData()">
     <div class="row text-center">
         <h1>Hello <?php echo $profileData['name']; ?>, your data is uploading...</h1>
-        <h3>Check out on <a href='https://drive.google.com/drive/my-drive'><button onclick="uploadData()" class="btn btn-success btn-lg">Google Drive</button></a></h3>
+        <h3>Check out on <a href='https://drive.google.com/drive/my-drive'><button class="btn btn-success btn-lg">Google Drive</button></a></h3>
     </div>
 </div>
 </body>
@@ -59,7 +59,9 @@ if ($_SESSION['driveAccessToken']!="") {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script type="text/javascript">
     var mainFolderId =<?php echo '"'.$mainFolderId.'"'; ?>;
+    uploadData();
     function uploadData() {
+        
         $.ajax({
             url: "uploadData.php",
             method: "POST",
