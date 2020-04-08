@@ -53,11 +53,6 @@ For additional installation and setup instructions, see [the documentation](http
 
 Complete documentation, installation instructions, and examples are available here.
 
-## Demo
-
-[You can view a live, interactive version of this Repo here](https://www.staging.nystrading.com/photo/).
-
-
 ## Security Vulnerabilities
 
 If you have found a security issue, please contact the maintainers directly at [mehta.harshit007@gmail.com](mailto:mehta.harshit007@gmail.com).
